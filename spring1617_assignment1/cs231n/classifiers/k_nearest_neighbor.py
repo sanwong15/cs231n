@@ -1,3 +1,9 @@
+'''
+San Wong (hswong1@uci.edu)
+Stanford CS231n Spring1617
+'''
+
+
 import numpy as np
 from past.builtins import xrange
 
@@ -65,6 +71,10 @@ class KNearestNeighbor(object):
     num_test = X.shape[0]
     num_train = self.X_train.shape[0]
     dists = np.zeros((num_test, num_train))
+
+    # Refer to the DIM of the dists matrix. The matrix numbering should go like this: dists[i,j]
+
+
     for i in xrange(num_test):
       for j in xrange(num_train):
         #####################################################################
@@ -73,6 +83,15 @@ class KNearestNeighbor(object):
         # training point, and store the result in dists[i, j]. You should   #
         # not use a loop over dimension.                                    #
         #####################################################################
+
+        # Compute the L2 Distance between the i-th Test Point and the j-th Train Point
+        # L2- Distance: Between p = [p1,p2...] q = [q1,q2 ...]
+        # Distance = SquareRoot((p1-q1)^2 + (p2-q2)^2 + ...)
+        dists[i,j] = np.sqrt(np.sum((self.X_train[j]-X[i])**2))
+        
+        # with do it with NORM
+        # dists[i,j] = np.linalg.norm(X[i]-self.X_train[j])
+
         pass
         #####################################################################
         #                       END OF YOUR CODE                            #
@@ -95,6 +114,10 @@ class KNearestNeighbor(object):
       # Compute the l2 distance between the ith test point and all training #
       # points, and store the result in dists[i, :].                        #
       #######################################################################
+      
+      # According to Lecture Notes
+      dists[i,:] = np.sqrt(np.sum(X_train-X[i,:]),axis=1)
+
       pass
       #######################################################################
       #                         END OF YOUR CODE                            #
