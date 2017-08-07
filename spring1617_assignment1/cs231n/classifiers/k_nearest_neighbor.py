@@ -115,7 +115,7 @@ class KNearestNeighbor(object):
       # points, and store the result in dists[i, :].                        #
       #######################################################################
       
-      # According to Lecture Notes
+      # According to Lecture Notes (np.sqrt can be dropped)
       dists[i,:] = np.sqrt(np.sum(np.square(X_train-X[i,:]),axis=1))
 
       pass
@@ -147,7 +147,11 @@ class KNearestNeighbor(object):
     #       and two broadcast sums.                                         #
     #########################################################################
     
-    dists = np.sum(self.X_train**2, axis=1) + np.sum(X**2, axis=1)
+    '''
+    (x-y)^2 = x^2 + y^2 - 2xy 
+    '''
+
+    dists = np.sum(self.X_train**2, axis=1) + np.sum(X**2, axis=1) - 2*np.dot(X,self.X_train.T)
 
 
 
